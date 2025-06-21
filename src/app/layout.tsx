@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClientProviders } from "@/providers/Chakra";
+import { UserProvider } from "@/contexts/UserContext";
 import { Footer } from "@/components/Footer";
 import { Box } from "@chakra-ui/react";
 
@@ -18,14 +19,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body style={{ margin: 0, padding: 0 }}>
         <ClientProviders>
-          {/* Main container with flex layout for sticky footer */}
-          <Box minH="100vh" display="flex" flexDirection="column">
-            {/* Main content area */}
-            <Box flex="1">{children}</Box>
-
-            {/* Footer component */}
-            <Footer />
-          </Box>
+          <UserProvider>
+            <Box minH="100vh" display="flex" flexDirection="column">
+              <Box flex="1">{children}</Box>
+              <Footer />
+            </Box>
+          </UserProvider>
         </ClientProviders>
       </body>
     </html>

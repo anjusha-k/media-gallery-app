@@ -1,25 +1,15 @@
-import { Button, Container, VStack, Heading, Text } from "@chakra-ui/react";
+import { AuthenticatedHome } from "@/components/AuthenticateHome";
+import { AuthGuard } from "@/components/AuthGuard";
 
 /**
- * Home page component
- * This will be the main entry point for the application
+ * Home Page
+ * Shows login form to unauthenticated users
+ * Shows authenticated content to logged-in users
  */
 export default function Home() {
   return (
-    <Container maxW="container.xl" py={8}>
-      <VStack align="center" justify="center" minH="70vh">
-        <Heading size="2xl" textAlign="center">
-          Media Gallery App
-        </Heading>
-
-        <Text fontSize="lg" textAlign="center" color="gray.600">
-          Welcome to the media gallery application
-        </Text>
-
-        <Button colorScheme="blue" size="lg">
-          Get Started
-        </Button>
-      </VStack>
-    </Container>
+    <AuthGuard>
+      <AuthenticatedHome />
+    </AuthGuard>
   );
 }
