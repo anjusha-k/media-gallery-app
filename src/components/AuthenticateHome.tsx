@@ -11,16 +11,10 @@ import {
 import { useUser } from "@/contexts/UserContext";
 
 export const AuthenticatedHome = () => {
-  const { userData, clearUserData } = useUser();
-
-  const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
-      clearUserData();
-    }
-  };
+  const { userData } = useUser();
 
   return (
-    <Container maxW="container.xl" py={8}>
+    <Container maxW="container.xl" py={12}>
       <VStack gap={8} align="center">
         <Box textAlign="center">
           <Heading size="2xl" mb={4} color="black">
@@ -31,23 +25,9 @@ export const AuthenticatedHome = () => {
           </Text>
         </Box>
 
-        <VStack gap={3}>
-          <Text fontSize="lg" fontWeight="semibold">
-            Your Profile
-          </Text>
-          <Box textAlign="center">
-            <Text color="gray.600">Username: {userData?.username}</Text>
-            <Text color="gray.600">Job Title: {userData?.jobTitle}</Text>
-          </Box>
-          <Button
-            size="sm"
-            variant="outline"
-            colorPalette="black"
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
-        </VStack>
+        <Button size="lg" colorPalette="black" px={8} py={6}>
+          Explore Gallery
+        </Button>
       </VStack>
     </Container>
   );
