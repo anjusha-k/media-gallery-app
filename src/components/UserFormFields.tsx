@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { Button, Input, VStack, Text, HStack } from "@chakra-ui/react";
 import { useUser } from "@/contexts/UserContext";

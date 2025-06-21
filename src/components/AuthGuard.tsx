@@ -7,12 +7,6 @@ import { UserForm } from "./UserForm";
 interface AuthGuardProps {
   children: React.ReactNode;
 }
-
-/**
- * Auth Guard Component
- * Shows login form when user is not authenticated
- * Shows protected content when authenticated
- */
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { isAuthenticated } = useUser();
 
