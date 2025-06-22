@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
-import { AuthGuard } from "@/components/AuthGuard";
 
 export default function Home() {
   const { isAuthenticated } = useUser();
@@ -12,8 +11,10 @@ export default function Home() {
   useEffect(() => {
     if (isAuthenticated) {
       router.replace("/gallery");
+    } else {
+      router.replace("/login");
     }
   }, [isAuthenticated, router]);
 
-  return <AuthGuard />;
+  return null;
 }

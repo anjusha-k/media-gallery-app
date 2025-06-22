@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Input, VStack, Text, HStack } from "@chakra-ui/react";
 import { useUser } from "@/contexts/UserContext";
 
@@ -17,6 +18,7 @@ export const UserFormFields = ({
   showCancel = false,
 }: UserFormFieldsProps) => {
   const { userData, setUserData } = useUser();
+  const router = useRouter();
 
   const [username, setUsername] = useState(userData?.username || "");
   const [jobTitle, setJobTitle] = useState(userData?.jobTitle || "");
@@ -29,6 +31,10 @@ export const UserFormFields = ({
         username: username.trim(),
         jobTitle: jobTitle.trim(),
       });
+
+      if (mode === "create") {
+        router.push("/gallery");
+      }
 
       onSuccess?.();
     }

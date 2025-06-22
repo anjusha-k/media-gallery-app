@@ -27,7 +27,7 @@ export const Header = () => {
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       clearUserData();
-      router.push("/");
+      router.push("/login");
     }
   };
 
