@@ -2,39 +2,49 @@
 import {
   Container,
   VStack,
-  Heading,
-  Text,
   Box,
   SimpleGrid,
-  Image,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
-import { useUser } from "@/contexts/UserContext";
-import { GET_CHARACTERS, CharactersResponse } from "@/lib/queries";
+import { useRouter, useSearchParams } from "next/navigation";
+import { GET_CHARACTERS, CharactersResponse, Character } from "@/lib/queries";
+import { GalleryHeader } from "./GalleryHeader";
+import { CharacterCard } from "./CharacterCard";
+import { PaginationControls } from "./PaginationControls";
 
 export const GalleryContent = () => {
-  const { userData } = useUser();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   const { loading, error, data } = useQuery<CharactersResponse>(
     GET_CHARACTERS,
     {
-      variables: { page: 1 },
+      variables: { page: currentPage },
     }
   );
+
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage.toString());
+    router.push(`/gallery?${params.toString()}`);
+  };
+
+  const handleCharacterClick = (character: Character) => {
+    console.log("Character clicked:", character);
+  };
 
   return (
     <Container maxW="container.xl" py={12}>
       <VStack gap={8} align="stretch">
-        <Box textAlign="center">
-          <Heading size="2xl" mb={4} color="black">
-            Rick and Morty Gallery
-          </Heading>
-          <Text fontSize="lg" color="gray.600">
-            Welcome {userData?.username}! Explore the characters from the
-            multiverse.
-          </Text>
-        </Box>
+        <GalleryHeader
+          currentPage={currentPage}
+          totalPages={data?.characters.info.pages}
+          totalCount={data?.characters.info.count}
+        />
 
         {loading && (
           <Box display="flex" justifyContent="center" py={8}>
@@ -57,38 +67,27 @@ export const GalleryContent = () => {
         )}
 
         {data && (
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} gap={6}>
-            {data.characters.results.map((character) => (
-              <Box
-                key={character.id}
-                p={4}
-                border="1px solid"
-                borderColor="gray.200"
-                borderRadius="md"
-                bg="white"
-                shadow="sm"
-                _hover={{ shadow: "md", transform: "translateY(-2px)" }}
-                transition="all 0.2s"
-                cursor="pointer"
-              >
-                <VStack align="center" gap={3}>
-                  <Image
-                    src={character.image}
-                    alt={character.name}
-                    borderRadius="md"
-                    boxSize="200px"
-                    objectFit="cover"
-                  />
-                  <Text fontWeight="bold" fontSize="lg" textAlign="center">
-                    {character.name}
-                  </Text>
-                  <Text color="gray.600" textAlign="center">
-                    {character.species} • {character.status}
-                  </Text>
-                </VStack>
-              </Box>
-            ))}
-          </SimpleGrid>
+          <>
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
+              gap={6}
+            >
+              {data.characters.results.map((character) => (
+                <CharacterCard
+                  key={character.id}
+                  character={character}
+                  onClick={handleCharacterClick}
+                />
+              ))}
+            </SimpleGrid>
+
+            <PaginationControls
+              currentPage={currentPage}
+              paginationInfo={data.characters.info}
+              onPageChange={handlePageChange}
+              resultsCount={data.characters.results.length}
+            />
+          </>
         )}
       </VStack>
     </Container>
