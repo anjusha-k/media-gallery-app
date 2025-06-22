@@ -7,16 +7,23 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { GET_CHARACTERS, CharactersResponse, Character } from "@/lib/queries";
 import { GalleryHeader } from "./GalleryHeader";
 import { CharacterCard } from "./CharacterCard";
 import { PaginationControls } from "./PaginationControls";
+import { CharacterDetail } from "./CharacterDetail";
 
 export const GalleryContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
@@ -34,7 +41,13 @@ export const GalleryContent = () => {
   };
 
   const handleCharacterClick = (character: Character) => {
-    console.log("Character clicked:", character);
+    setSelectedCharacter(character);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCharacter(null);
   };
 
   return (
@@ -90,6 +103,12 @@ export const GalleryContent = () => {
           </>
         )}
       </VStack>
+
+      <CharacterDetail
+        character={selectedCharacter}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </Container>
   );
 };
