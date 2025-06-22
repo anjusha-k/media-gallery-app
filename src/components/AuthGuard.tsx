@@ -1,3 +1,4 @@
+// components/AuthGuard.tsx
 "use client";
 
 import { Box, Text, VStack } from "@chakra-ui/react";
@@ -5,8 +6,9 @@ import { useUser } from "@/contexts/UserContext";
 import { UserForm } from "./UserForm";
 
 interface AuthGuardProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
+
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const { isAuthenticated } = useUser();
 
@@ -23,7 +25,10 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
         <VStack gap={6} textAlign="center" maxW="lg" mx="auto" px={4}>
           <Box>
             <Text fontSize="2xl" fontWeight="bold" color="black" mb={2}>
-              Welcome to Media Gallery App
+              Welcome to Rick & Morty Gallery
+            </Text>
+            <Text color="gray.600">
+              Please enter your information to access the gallery
             </Text>
           </Box>
 

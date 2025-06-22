@@ -1,6 +1,8 @@
+// components/Header.tsx
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Container,
@@ -16,6 +18,7 @@ import { UserModal } from "./UserModal";
 export const Header = () => {
   const { isAuthenticated, userData, clearUserData } = useUser();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const router = useRouter();
 
   if (!isAuthenticated) {
     return null;
@@ -24,6 +27,7 @@ export const Header = () => {
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       clearUserData();
+      router.push("/");
     }
   };
 
@@ -33,7 +37,7 @@ export const Header = () => {
         <Container maxW="container.xl">
           <HStack justify="space-between" align="center">
             <Heading size="lg" color="black">
-              Media Gallery
+              Rick & Morty Gallery
             </Heading>
 
             <HStack gap={4} align="center">
