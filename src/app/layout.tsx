@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClientProviders } from "@/providers/Chakra";
+import { ClientProviders } from "@/providers/ClientProviders";
 import { UserProvider } from "@/contexts/UserContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -11,10 +11,6 @@ export const metadata: Metadata = {
     "A responsive media gallery application built with Next.js and GraphQL",
 };
 
-/**
- * Root layout component that wraps the entire application
- * Provides the basic HTML structure and global providers
- */
 export default function RootLayout({
   children,
 }: Readonly<{
