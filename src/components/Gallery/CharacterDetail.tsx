@@ -87,8 +87,8 @@ export const CharacterDetail = ({
                   </Heading>
                   <Badge
                     size={{ base: "md", md: "lg" }}
-                    px={4}
-                    py={2}
+                    px={2}
+                    py={1}
                     borderRadius="md"
                   >
                     {character.status}

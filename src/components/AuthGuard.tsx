@@ -1,9 +1,8 @@
-// components/AuthGuard.tsx
 "use client";
 
 import { Box, Text, VStack } from "@chakra-ui/react";
 import { useUser } from "@/contexts/UserContext";
-import { UserForm } from "./UserForm";
+import { UserForm } from "@/components/user/UserForm";
 
 interface AuthGuardProps {
   children?: React.ReactNode;
@@ -27,11 +26,7 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
             <Text fontSize="2xl" fontWeight="bold" color="black" mb={2}>
               Welcome to Rick & Morty Gallery
             </Text>
-            <Text color="gray.600">
-              Please enter your information to access the gallery
-            </Text>
           </Box>
-
           <UserForm />
         </VStack>
       </Box>

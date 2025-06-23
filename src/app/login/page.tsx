@@ -1,11 +1,10 @@
-// app/login/page.tsx
 "use client";
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Box, Text, VStack } from "@chakra-ui/react";
 import { useUser } from "@/contexts/UserContext";
-import { UserForm } from "@/components/UserForm";
+import { UserForm } from "@/components/user/UserForm";
 
 export default function LoginPage() {
   const { isAuthenticated } = useUser();
@@ -35,11 +34,7 @@ export default function LoginPage() {
           <Text fontSize="2xl" fontWeight="bold" color="black" mb={2}>
             Welcome to Rick & Morty Gallery
           </Text>
-          <Text color="gray.600">
-            Please enter your information to access the gallery
-          </Text>
         </Box>
-
         <UserForm />
       </VStack>
     </Box>

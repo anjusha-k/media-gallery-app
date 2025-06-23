@@ -1,4 +1,3 @@
-// components/Header.tsx
 "use client";
 
 import { useState } from "react";
@@ -13,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { FiEdit2, FiLogOut } from "react-icons/fi";
 import { useUser } from "@/contexts/UserContext";
-import { UserModal } from "./UserModal";
+import { UserModal } from "@/components/user/UserModal";
 
 export const Header = () => {
   const { isAuthenticated, userData, clearUserData } = useUser();
